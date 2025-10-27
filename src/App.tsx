@@ -3,8 +3,16 @@
 import React, { useEffect, useState } from 'react';
 import { getTodos } from './api/todos';
 import { Todo } from './types/Todo';
-import {TodoError} from './types/Errors'
 import cn from 'classnames';
+
+enum TodoError {
+  LOAD = 'Unable to load todos',
+  EMPTY_TITLE = 'Title should not be empty',
+  ADD = 'Unable to add a todo',
+  DELETE = 'Unable to delete a todo',
+  UPDATE = 'Unable to update a todo',
+}
+
 
 export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
