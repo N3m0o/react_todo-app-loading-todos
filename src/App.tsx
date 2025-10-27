@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getTodos } from './api/todos';
 import { Todo } from './types/Todo';
-import { TodoError } from './types/Errors';
+import {TodoError} from './types/Errors'
 import cn from 'classnames';
 
 export const App: React.FC = () => {
