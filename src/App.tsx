@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getTodos } from './api/todos';
 import { Todo } from './types/Todo';
-import { TodoError } from './types/errors';
+import { TodoError } from './types/Errors';
 import cn from 'classnames';
 
 export const App: React.FC = () => {
@@ -28,7 +28,7 @@ export const App: React.FC = () => {
 
   function loadTodos() {
     setIsLoading(true);
-    // setError(null);
+    setError(null);
 
     getTodos()
       .then(setTodos)
