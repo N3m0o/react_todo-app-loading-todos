@@ -35,7 +35,6 @@ export const App: React.FC = () => {
       .catch(() => setError(TodoError.LOAD))
       .finally(() => setIsLoading(false));
   }
-  
 
   useEffect(() => {
     loadTodos();
