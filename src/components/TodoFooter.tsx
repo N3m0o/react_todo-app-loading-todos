@@ -8,8 +8,7 @@ type Props = {
     React.SetStateAction<'all' | 'active' | 'completed'>
   >;
 };
-/* eslint-enable @typescript-eslint/indent */git
-
+/* eslint-enable @typescript-eslint/indent */
 export const TodoFooter: React.FC<Props> = ({
   activeCount,
   filter,
@@ -53,6 +52,7 @@ export const TodoFooter: React.FC<Props> = ({
       type="button"
       className="todoapp__clear-completed"
       data-cy="ClearCompletedButton"
+      onClick={() =>{}}
     >
       Clear completed
     </button>
