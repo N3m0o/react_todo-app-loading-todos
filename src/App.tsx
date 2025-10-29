@@ -16,6 +16,7 @@ enum TodoError {
   DELETE = 'Unable to delete a todo',
   UPDATE = 'Unable to update a todo',
 }
+//added some todos
 
 export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
