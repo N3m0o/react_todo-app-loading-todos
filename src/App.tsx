@@ -8,58 +8,49 @@ import { TodoList } from './components/TodoList';
 import { TodoFooter } from './components/TodoFooter';
 import { Loader } from './components/Loader';
 import { ErrorNotification } from './components/ErrorNotifications';
+import { Filter } from './types/Filter';
+import { TodoError } from './types/TodoError';
 
-enum TodoError {
-  LOAD = 'Unable to load todos',
-  EMPTY_TITLE = 'Title should not be empty',
-  ADD = 'Unable to add a todo',
-  DELETE = 'Unable to delete a todo',
-  UPDATE = 'Unable to update a todo',
-}
 //added some todos
 
 export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+  const [filter, setFilter] = useState<Filter>(Filter.All);
 
   const activeCount = todos.filter(todo => !todo.completed).length;
 
   const filtredTodos = todos.filter(todo => {
-    if (filter === 'active') {
+    if (filter === Filter.Active) {
       return !todo.completed;
     }
 
-    if (filter === 'completed') {
+    if (filter === Filter.Completed) {
       return todo.completed;
     }
 
     return true;
   });
 
-  function loadTodos() {
+  useEffect(() => {
     setIsLoading(true);
     setError(null);
 
     getTodos()
-      .then(setTodos)
-      .catch(() => setError(TodoError.LOAD))
-      .finally(() => setIsLoading(false));
-  }
-
-  useEffect(() => {
-    loadTodos();
+    .then(setTodos)
+    .catch(() => setError(TodoError.LOAD))
+    .finally(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => setError(null), 3000);
-
-      return () => clearTimeout(timer);
+    if (!error) {
+      return;
     }
 
-    return undefined;
+    const timer = setTimeout(() => setError(null), 3000);
+
+    return () => clearTimeout(timer);
   }, [error]);
 
   return (
@@ -77,7 +68,7 @@ export const App: React.FC = () => {
           <TodoFooter
             activeCount={activeCount}
             filter={filter}
-            setFilter={setFilter}
+            onFilterChange={setFilter}
           />
         )}
       </div>

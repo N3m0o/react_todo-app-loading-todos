@@ -1,18 +1,17 @@
 import React from 'react';
 import cn from 'classnames';
+import { Filter } from '../types/Filter';
 /* eslint-disable @typescript-eslint/indent */
 type Props = {
   activeCount: number;
-  filter: 'all' | 'active' | 'completed';
-  setFilter: React.Dispatch<
-    React.SetStateAction<'all' | 'active' | 'completed'>
-  >;
+  filter: Filter;
+  onFilterChange: (value: Filter) => void;
 };
 /* eslint-enable @typescript-eslint/indent */
 export const TodoFooter: React.FC<Props> = ({
   activeCount,
   filter,
-  setFilter,
+  onFilterChange,
 }) => (
   <footer className="todoapp__footer" data-cy="Footer">
     <span className="todo-count" data-cy="TodosCounter">
@@ -24,25 +23,25 @@ export const TodoFooter: React.FC<Props> = ({
         href="#/"
         className={cn('filter__link', { selected: filter === 'all' })}
         data-cy="FilterLinkAll"
-        onClick={() => setFilter('all')}
+        onClick={() => onFilterChange(Filter.All)}
       >
         All
       </a>
 
       <a
         href="#/active"
-        className={cn('filter__link', { selected: filter === 'active' })}
+        className={cn('filter__link', { selected: filter === Filter.Active })}
         data-cy="FilterLinkActive"
-        onClick={() => setFilter('active')}
+        onClick={() => onFilterChange(Filter.Active)}
       >
         Active
       </a>
 
       <a
         href="#/completed"
-        className={cn('filter__link', { selected: filter === 'completed' })}
+        className={cn('filter__link', { selected: filter === Filter.Completed })}
         data-cy="FilterLinkCompleted"
-        onClick={() => setFilter('completed')}
+        onClick={() => onFilterChange(Filter.Completed)}
       >
         Completed
       </a>
